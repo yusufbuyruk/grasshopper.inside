@@ -1,15 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.Http;
+using GrasshopperInside;
+
+using GH_IO.Serialization;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace OwinSelfhostSample
 {
     public class DocumentsController : ApiController
     {
+
         [HttpGet]
         public IHttpActionResult GetDocuments()
         {
-            List<string> documents = new List<string>();
+            var documents = Document.Get().Documents;
+            documents.Clear();
 
             string folder = Path.Combine(Directory.GetCurrentDirectory(), "documents");
 
@@ -18,7 +26,11 @@ namespace OwinSelfhostSample
                     if (Path.GetExtension(file) == ".gh" || Path.GetExtension(file) == ".ghx")
                         documents.Add(Path.GetFileName(file));
             
-            return Json(documents);
+            Console.WriteLine("GET  | api/documents");
+
+            var data = new { documents };
+
+            return Json(data);
         }
 
         [HttpPost]
@@ -35,62 +47,193 @@ namespace OwinSelfhostSample
 
                 using (StreamWriter writer = new StreamWriter(Path.Combine(folder, filename)))
                     writer.WriteLineAsync(document);
-            }
 
-            return Ok();
+                Console.WriteLine($"POST | api/upload/{filename} | Ok");
+                return Ok($"{filename} uploaded.");
+            }
+            else
+            {
+                Console.WriteLine($"POST | api/upload/{filename} | BadRequest");
+                return BadRequest("Filename extension must be .ghx");
+            }
         }
 
         [HttpGet]
-        public IHttpActionResult Compress(string filename)
+        public IHttpActionResult Compress(int id)
         {
+            // Converts GHX to GH, uses Deflate algorithm
+
+            var document = Document.Get();
+
+            if (document.Documents.Count >= id)
+                return BadRequest("Index out of range.");
+
+            string filename = document.Filename(id);
+            string folder = Path.Combine(Directory.GetCurrentDirectory(), "documents");
+            string path = Path.Combine(folder, filename);
+
+            if (!File.Exists(path))
+            {
+                Console.WriteLine($"GET  | api/compress/{id} - {filename} | NotFound");
+                return BadRequest($"{filename} not found.");
+            }
+
             if (Path.GetExtension(filename).ToLower() == ".ghx")
             {
-                // Converts GHX to GH, uses Deflate algorithm
+                string compressedFilename = Path.GetFileNameWithoutExtension(filename) + ".gh";
 
+                if (File.Exists(compressedFilename))
+                {
+                    Console.WriteLine($"GET  | api/compress/{id} - {filename} | BadRequest");
+                    return BadRequest($"{compressedFilename} already exists.");
+                }
+
+                GH_Archive archive = new GH_Archive();
+                archive.ReadFromFile(filename);
+                bool result = archive.WriteToFile(compressedFilename, false, false);
+
+                if (result)
+                {
+                    Console.WriteLine($"GET  | api/compress/{id} - {filename} | Ok");
+                    return Ok($"{filename} compressed.");
+                }
+
+                else
+                {
+                    Console.WriteLine($"GET  | api/compress/{id} - {filename} | InternalServerError");
+                    return InternalServerError();
+                }
             }
-
-            return Ok();
+            else
+            {
+                Console.WriteLine($"GET  | api/compress/{id} - {filename} | BadRequest");
+                return BadRequest("Filename extension must be .ghx");
+            }
         }
 
         [HttpGet]
-        public IHttpActionResult Delete(string filename)
+        public IHttpActionResult Delete(int id)
         {
+            var document = Document.Get();
+
+            if (document.Documents.Count >= id)
+                return BadRequest("Index out of range.");
+
+            string filename = document.Filename(id);
             string folder = Path.Combine(Directory.GetCurrentDirectory(), "documents");
+            string path = Path.Combine(folder, filename);
 
-            if (File.Exists(Path.Combine(folder, filename)))
+            try
             {
-                // Delete GH, return Ok();
-            }
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
 
-            return Ok("file not found");
+                    Console.WriteLine($"GET  | api/delete/{id} - {filename} | Ok");
+                    return Ok($"{filename} deleted");
+                }
+                else
+                {
+                    Console.WriteLine($"GET  | api/delete/{id} - {filename} | NotFound");
+                    return NotFound();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"GET  | api/delete/{id} - {filename} | InternalServerError");
+                return InternalServerError(ex);
+            }
         }
 
         [HttpGet]
-        public IHttpActionResult Load(string filename)
+        public IHttpActionResult Load(int id)
         {
+            var document = Document.Get();
+
+            if (id > document.Documents.Count)
+                return BadRequest("Index out of range.");
+
+            string filename = document.Filename(id);
             string folder = Path.Combine(Directory.GetCurrentDirectory(), "documents");
+            string path = Path.Combine(folder, filename);
 
-            if (File.Exists(Path.Combine(folder, filename)))
+            if (File.Exists(path))
             {
-                // Load GH // return inputs outputs  // return Json(document)
+                bool result = document.Load(path); // result = clusters.Count > 0
+
+                if (result)
+                {
+                    Console.WriteLine($"GET  | api/load/{id} - {filename} | Ok");
+
+                    List<string> labels = new List<string>();
+
+                    foreach(var cluster in document.Clusters)
+                        labels.Add(cluster.Label);
+
+                    var data = new { labels };
+
+                    return Json(data);
+                }
+                else
+                {
+                    Console.WriteLine($"GET  | api/load/{id} - {filename} | BadRequest");
+                    return BadRequest("No cluster found.");
+                }
             }
-
-            // Load
-            // Return inputs_outputs
-
-            return Json("document");
+            else
+            {
+                Console.WriteLine($"GET  | api/load/{id} - {filename} | NotFound");
+                return NotFound();
+            }
         }
-        
+
+        [HttpGet]
+        public IHttpActionResult GetCluster(int id = 0)
+        {
+            var document = Document.Get();
+
+            if (id >= document.Clusters.Count)
+                return BadRequest("Index out of range.");
+
+
+
+            var cluster = document.Clusters[id];
+            return Json(cluster.Inputs);
+        }
 
         [HttpPost]
-        public IHttpActionResult Compute()
+        public IHttpActionResult Compute(int id = 0)
         {
-            // Generate
-            // Return inputs_outputs
-            return Json("document");
+            var document = Document.Get();
+
+            if (document.Clusters.Count >= id)
+            {
+                Console.WriteLine($"POST | api/compute/{id} | BadRequest | Index out of range");
+                return BadRequest("Index out of range.");
+            }
+
+            try
+            {
+                string json = Request.Content.ReadAsStringAsync().Result;
+
+                var clusters = Document.Get().Clusters;
+
+                var cluster = clusters[id];
+
+                cluster.SetInputs(json);
+                cluster.ComputeOutputs();
+
+                Console.WriteLine($"POST | api/compute/{id} | Ok");
+                return Json(cluster);
+
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine($"POST | api/compute/{id} | BadRequest");
+                return InternalServerError(ex);
+            }
         }
     }
-
-
-    public class Document { }
 }

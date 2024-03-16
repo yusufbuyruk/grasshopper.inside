@@ -1,4 +1,4 @@
-Rhino v7
+Rhino v8
 
 Visual Studio 2022
 
@@ -10,3 +10,6 @@ Install-Package Microsoft.AspNet.WebApi.OwinSelfHost
 
 Install-Package Rhino.Inside
 
+Package Manager Settings
+Options - NuGet Package Manager - General - Package Management
+Default package management format - PackageReference
