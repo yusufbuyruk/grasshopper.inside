@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.Http;
 
@@ -18,12 +19,15 @@ namespace OwinSelfhostSample
                     if (Path.GetExtension(file) == ".gh" || Path.GetExtension(file) == ".ghx")
                         documents.Add(Path.GetFileName(file));
             
+            Console.WriteLine("GET  | api/documents");
             return Json(documents);
         }
 
         [HttpPost]
         public IHttpActionResult Upload(string filename)
         {
+
+
             string folder = Path.Combine(Directory.GetCurrentDirectory(), "documents");
 
             if (!Directory.Exists(folder))
@@ -35,9 +39,15 @@ namespace OwinSelfhostSample
 
                 using (StreamWriter writer = new StreamWriter(Path.Combine(folder, filename)))
                     writer.WriteLineAsync(document);
-            }
 
-            return Ok();
+                Console.WriteLine($"POST | api/upload/{filename} | Ok");
+                return Ok($"{filename} uploaded.");
+            }
+            else
+            {
+                Console.WriteLine($"POST | api/upload/{filename} | BadRequest");
+                return BadRequest("Filename extension must be .ghx");
+            }
         }
 
         [HttpGet]
@@ -47,9 +57,14 @@ namespace OwinSelfhostSample
             {
                 // Converts GHX to GH, uses Deflate algorithm
 
+                Console.WriteLine($"GET  | api/compress/{filename} | Ok");
+                return Ok($"{filename} compressed.");
             }
-
-            return Ok();
+            else
+            {
+                Console.WriteLine($"GET  | api/compress/{filename} | BadRequest");
+                return BadRequest("Filename extension must be .ghx");
+            }
         }
 
         [HttpGet]
@@ -57,40 +72,74 @@ namespace OwinSelfhostSample
         {
             string folder = Path.Combine(Directory.GetCurrentDirectory(), "documents");
 
-            if (File.Exists(Path.Combine(folder, filename)))
-            {
-                // Delete GH, return Ok();
-            }
+            string path = Path.Combine(folder, filename);
 
-            return Ok("file not found");
+            try
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+
+                    Console.WriteLine($"GET  | api/delete/{filename} | Ok");
+                    return Ok($"{filename} deleted");
+                }
+                else
+                {
+                    Console.WriteLine($"GET  | api/delete/{filename} | NotFound");
+                    return NotFound();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"GET  | api/delete/{filename} | InternalServerError");
+                return InternalServerError(ex);
+            }
         }
 
         [HttpGet]
         public IHttpActionResult Load(string filename)
         {
+            
+
             string folder = Path.Combine(Directory.GetCurrentDirectory(), "documents");
 
             if (File.Exists(Path.Combine(folder, filename)))
             {
-                // Load GH // return inputs outputs  // return Json(document)
+                // Load GH // return inputs outputs
+
+                Console.WriteLine($"GET  | api/load/{filename} | Ok");
+                return Json("document");
             }
-
-            // Load
-            // Return inputs_outputs
-
-            return Json("document");
+            else
+            {
+                Console.WriteLine($"GET  | api/load/{filename} | NotFound");
+                return NotFound();
+            }
         }
         
 
         [HttpPost]
         public IHttpActionResult Compute()
         {
-            // Generate
-            // Return inputs_outputs
-            return Json("document");
+
+            try
+            {
+
+                // Generate
+                // Return inputs_outputs
+
+
+                Console.WriteLine("POST | api/compute | Ok");
+                return Json("document");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("POST | api/compute | BadRequest");
+                return BadRequest(ex.Message);
+            }
+
+
         }
     }
-
-
-    public class Document { }
 }

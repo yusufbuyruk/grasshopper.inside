@@ -43,6 +43,7 @@ namespace GrasshopperInside
                     Console.WriteLine("POST | api/compute");
                     Console.WriteLine("----------------------------");
                     Console.WriteLine("Press CTRL-Z to exit");
+                    Console.WriteLine("----------------------------");
 
                     while (true)
                         if (Console.ReadLine() == null)
