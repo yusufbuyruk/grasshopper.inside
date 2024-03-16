@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Web.Http;
+using GrasshopperInside;
+
+using GH_IO.Serialization;
 
 namespace OwinSelfhostSample
 {
@@ -26,8 +29,6 @@ namespace OwinSelfhostSample
         [HttpPost]
         public IHttpActionResult Upload(string filename)
         {
-
-
             string folder = Path.Combine(Directory.GetCurrentDirectory(), "documents");
 
             if (!Directory.Exists(folder))
@@ -53,12 +54,33 @@ namespace OwinSelfhostSample
         [HttpGet]
         public IHttpActionResult Compress(string filename)
         {
+            // Converts GHX to GH, uses Deflate algorithm
+
             if (Path.GetExtension(filename).ToLower() == ".ghx")
             {
-                // Converts GHX to GH, uses Deflate algorithm
+                string compressedFilename = Path.GetFileNameWithoutExtension(filename) + ".gh";
 
-                Console.WriteLine($"GET  | api/compress/{filename} | Ok");
-                return Ok($"{filename} compressed.");
+                if (File.Exists(compressedFilename))
+                {
+                    Console.WriteLine($"GET  | api/compress/{filename} | BadRequest");
+                    return BadRequest($"{compressedFilename} already exists.");
+                }
+
+                GH_Archive archive = new GH_Archive();
+                archive.ReadFromFile(filename);
+                bool result = archive.WriteToFile(compressedFilename, false, false);
+
+                if (result)
+                {
+                    Console.WriteLine($"GET  | api/compress/{filename} | Ok");
+                    return Ok($"{filename} compressed.");
+                }
+
+                else
+                {
+                    Console.WriteLine($"GET  | api/compress/{filename} | InternalServerError");
+                    return InternalServerError();
+                }
             }
             else
             {
@@ -100,16 +122,22 @@ namespace OwinSelfhostSample
         [HttpGet]
         public IHttpActionResult Load(string filename)
         {
-            
-
             string folder = Path.Combine(Directory.GetCurrentDirectory(), "documents");
 
             if (File.Exists(Path.Combine(folder, filename)))
             {
-                // Load GH // return inputs outputs
+                bool result = Document.GetDocument().Load(filename);
 
-                Console.WriteLine($"GET  | api/load/{filename} | Ok");
-                return Json("document");
+                if (result)
+                {
+                    Console.WriteLine($"GET  | api/load/{filename} | Ok");
+                    return Json("document");
+                }
+                else
+                {
+                    Console.WriteLine($"GET  | api/load/{filename} | BadRequest");
+                    return BadRequest("No cluster found.");
+                }
             }
             else
             {
@@ -120,26 +148,35 @@ namespace OwinSelfhostSample
         
 
         [HttpPost]
-        public IHttpActionResult Compute()
+        public IHttpActionResult Compute(int id)
         {
-
             try
             {
+                string json = Request.Content.ReadAsStringAsync().Result;
 
-                // Generate
-                // Return inputs_outputs
+                var clusters = Document.GetDocument().Clusters;
 
+                if (clusters.Count > id)
+                {
+                    var cluster = clusters[id];
+                    cluster.SetInputs(json);
+                    cluster.ComputeOutputs();
 
-                Console.WriteLine("POST | api/compute | Ok");
-                return Json("document");
+                    Console.WriteLine("POST | api/compute | Ok");
+                    return Json(cluster);
+                }
+                else
+                {
+                    Console.WriteLine("POST | api/compute | BadRequest");
+                    return BadRequest("Index out of range.");
+                }
             }
+
             catch (Exception ex)
             {
                 Console.WriteLine("POST | api/compute | BadRequest");
-                return BadRequest(ex.Message);
+                return InternalServerError(ex);
             }
-
-
         }
     }
 }

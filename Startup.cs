@@ -41,7 +41,7 @@ namespace OwinSelfhostSample
 
             config.Routes.MapHttpRoute(
                 name: "Compute", 
-                routeTemplate: "api/compute",
+                routeTemplate: "api/compute/{id}",
                 defaults: new { controller = "Documents", action = "Compute" } 
                 );
 
