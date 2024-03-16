@@ -16,7 +16,7 @@ namespace GrasshopperInside
     public class Cluster
     {
         public readonly string guid;
-        private readonly GH_Cluster ghCluster;
+        private readonly GH_Cluster _ghCluster;
 
         [JsonProperty("label")]
         public readonly string Label;
@@ -30,7 +30,8 @@ namespace GrasshopperInside
         public Cluster() { }
         public Cluster(GH_Cluster cluster)
         {
-            ghCluster = cluster;
+            _ghCluster = cluster;
+
             Label = cluster.NickName;     // cluster.Name
             Inputs = new List<IInput>();
             Outputs = new List<IOutput>();
@@ -73,11 +74,13 @@ namespace GrasshopperInside
                 if (label != giInput.Label)
                     throw new Exception("Label Mismatch Error");
 
+                // throw new Exception("Input Order Mismatch Error");
+
                 giInput.SetData(data);
             }
         }
 
-        public void ComputeOutputs() // update lite mesh
+        public void ComputeOutputs()
         {
             foreach (var output in Outputs)
                 output.ComputeData();

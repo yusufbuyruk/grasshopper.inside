@@ -11,7 +11,7 @@ namespace GrasshopperInside
         // Singleton
         private static Document _document;
 
-        public static Document GetDocument()
+        public static Document Get()
         {
             if (_document == null)
                 _document = new Document();

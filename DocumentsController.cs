@@ -126,7 +126,7 @@ namespace OwinSelfhostSample
 
             if (File.Exists(Path.Combine(folder, filename)))
             {
-                bool result = Document.GetDocument().Load(filename);
+                bool result = Document.Get().Load(filename);
 
                 if (result)
                 {
@@ -154,27 +154,28 @@ namespace OwinSelfhostSample
             {
                 string json = Request.Content.ReadAsStringAsync().Result;
 
-                var clusters = Document.GetDocument().Clusters;
+                var clusters = Document.Get().Clusters;
 
                 if (clusters.Count > id)
                 {
                     var cluster = clusters[id];
+
                     cluster.SetInputs(json);
                     cluster.ComputeOutputs();
 
-                    Console.WriteLine("POST | api/compute | Ok");
+                    Console.WriteLine($"POST | api/compute/{id} | Ok");
                     return Json(cluster);
                 }
                 else
                 {
-                    Console.WriteLine("POST | api/compute | BadRequest");
+                    Console.WriteLine($"POST | api/compute/{id} | BadRequest");
                     return BadRequest("Index out of range.");
                 }
             }
 
             catch (Exception ex)
             {
-                Console.WriteLine("POST | api/compute | BadRequest");
+                Console.WriteLine($"POST | api/compute/{id} | BadRequest");
                 return InternalServerError(ex);
             }
         }

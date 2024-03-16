@@ -23,24 +23,24 @@ namespace GrasshopperInside
             {
                 RunHeadless();
 
-
-                string baseAddress = "http://localhost:4446/";
+                int port = 4446;
 
                 if (args.Length > 0)
-                    if (int.TryParse(args[0], out int port))
-                        baseAddress = $"http://localhost:{port}";
+                    int.TryParse(args[0], out port);
+
+                string baseAddress = $"http://localhost:{port}/";
 
                 using (WebApp.Start<Startup>(url: baseAddress))
                 {
                     Console.WriteLine("----------------------------");
-                    Console.WriteLine("API  http://localhost:4446/");
+                    Console.WriteLine($"API  {baseAddress}");
                     Console.WriteLine("----------------------------");
                     Console.WriteLine("GET  | api/documents");
                     Console.WriteLine("POST | api/upload/{filename}");
                     Console.WriteLine("GET  | api/delete/{filename}");
                     Console.WriteLine("GET  | api/load/{filename}");
                     Console.WriteLine("GET  | api/compress/{filename}");
-                    Console.WriteLine("POST | api/compute");
+                    Console.WriteLine("POST | api/compute/{id=0}");
                     Console.WriteLine("----------------------------");
                     Console.WriteLine("Press CTRL-Z to exit");
                     Console.WriteLine("----------------------------");

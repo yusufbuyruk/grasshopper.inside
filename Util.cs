@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rhino;
+﻿using System.Collections.Generic;
 using Rhino.Geometry;
 
 namespace GrasshopperInside

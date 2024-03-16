@@ -66,120 +66,6 @@ namespace GrasshopperInside
         }
     }
 
-    public class Output : Parameter, IOutput
-    {
-        [JsonProperty("data")]
-        public List<IData> Data { get; set; }
-
-        public Output() : base() { }
-        public Output(IGH_Param ighParam, Cluster cluster) : base(ighParam, cluster)
-        {
-            Data = new List<IData>();
-        }
-
-        public void ComputeData()
-        {
-            Data.Clear();
-
-            Param.CollectData();
-            Param.ComputeData();
-
-
-            // TODO SEARCH : Param.Kind vs Param.TypeName
-            // TODO SEARCH : Param.Phase = GH_SolutionPhase.Collecting / GH_SolutionPhase.Collected / GH_SolutionPhase.Computed;
-
-            // var item = (GH_<Data>)Param.VolatileData.get_Branch(0)[0];
-            // Data = item.Value;
-
-            foreach (var item in Param.VolatileData.AllData(true))
-            {
-                switch (Param.TypeName)
-                {
-                    case "Arc":
-                        if (item.CastTo(out Arc arc))
-                            Data.Add(new ArcData() { Geom = new ArcGeom(arc) });
-                        break;
-
-                    case "Boolean":
-                        if (item.CastTo(out bool b))
-                            Data.Add(new BooleanData() { Value = b });
-                        break;
-
-                    case "Box":
-                        if (item.CastTo(out Box box))
-                            Data.Add(new BoxData() { Geom = new BoxGeom(box) });
-                        break;
-
-                    case "Circle":
-                        if (item.CastTo(out Circle circle))
-                            Data.Add(new CircleData() { Geom = new CircleGeom(circle) });
-                        break;
-
-                    case "Curve":
-                        if (item.CastTo(out Curve curve))
-                            Data.Add(new CurveData() { Geom = new CurveGeom(curve) });
-                        break;
-
-                    case "Integer":
-                        if (item.CastTo(out int i))
-                            Data.Add(new IntegerData() { Value = i });
-                        break;
-
-                    case "Line":
-                        if (item.CastTo(out Line line))
-                            Data.Add(new LineData() { Geom = new LineGeom(line) });
-                        break;
-
-                    case "Mesh":
-                        if (item.CastTo(out Mesh mesh))
-                            if (Label != "static")
-                                Data.Add(new MeshData() { Geom = new MeshGeom(mesh) });
-                        break;
-
-                    case "Number":
-                        if (item.CastTo(out float f))
-                            Data.Add(new NumberData() { Value = f });
-                        break;
-
-                    case "Plane":
-                        if (item.CastTo(out Plane plane))
-                                Data.Add(new PlaneData() { Geom = new PlaneGeom(plane) });
-                        break;
-
-                    case "Point":
-                        if (item.CastTo(out Point3f point))
-                            Data.Add(new PointData() { Point = new float[] { point.X, point.Y, point.Z } });
-                        break;
-
-                    case "Rectangle":
-                        if (item.CastTo(out Rectangle3d rectangle))
-                            Data.Add(new RectangleData() { Geom = new RectangleGeom(rectangle) });
-                        break;
-
-                    case "Text":
-                        if (item.CastTo(out string s))
-                            Data.Add(new StringData() { Value = s });
-                        break;
-
-                    case "SubD":
-                        if (item.CastTo(out SubD subd))
-                            Data.Add(new SubDData() { Geom = new SubDGeom(subd) });
-                        break;
-
-                    case "Surface":
-                        //if (item.CastTo(out Surface surface))
-                        //    Data.Add(new SurfaceData() { Geom = new SurfaceGeom(surface) });
-                        break;
-
-                    case "Vector":
-                        if (item.CastTo(out Vector3f vector))
-                            Data.Add(new VectorData() { Vector = new float[] { vector.X, vector.Y, vector.Z } });
-                        break;
-                }
-            }
-        }
-    }
-
     public class Slider
     {
         [JsonProperty("min")]
@@ -368,6 +254,120 @@ namespace GrasshopperInside
 
             if (Data != null)
                 Param.AddVolatileData(new GH_Path(0), 0, Data.GH_Data);
+        }
+    }
+
+    public class Output : Parameter, IOutput
+    {
+        [JsonProperty("data")]
+        public List<IData> Data { get; set; }
+
+        public Output() : base() { }
+        public Output(IGH_Param ighParam, Cluster cluster) : base(ighParam, cluster)
+        {
+            Data = new List<IData>();
+        }
+
+        public void ComputeData()
+        {
+            Data.Clear();
+
+            Param.CollectData();
+            Param.ComputeData();
+
+
+            // TODO SEARCH : Param.Kind vs Param.TypeName
+            // TODO SEARCH : Param.Phase = GH_SolutionPhase.Collecting / GH_SolutionPhase.Collected / GH_SolutionPhase.Computed;
+
+            // var item = (GH_<Data>)Param.VolatileData.get_Branch(0)[0];
+            // Data = item.Value;
+
+            foreach (var item in Param.VolatileData.AllData(true))
+            {
+                switch (Param.TypeName)
+                {
+                    case "Arc":
+                        if (item.CastTo(out Arc arc))
+                            Data.Add(new ArcData() { Geom = new ArcGeom(arc) });
+                        break;
+
+                    case "Boolean":
+                        if (item.CastTo(out bool b))
+                            Data.Add(new BooleanData() { Value = b });
+                        break;
+
+                    case "Box":
+                        if (item.CastTo(out Box box))
+                            Data.Add(new BoxData() { Geom = new BoxGeom(box) });
+                        break;
+
+                    case "Circle":
+                        if (item.CastTo(out Circle circle))
+                            Data.Add(new CircleData() { Geom = new CircleGeom(circle) });
+                        break;
+
+                    case "Curve":
+                        if (item.CastTo(out Curve curve))
+                            Data.Add(new CurveData() { Geom = new CurveGeom(curve) });
+                        break;
+
+                    case "Integer":
+                        if (item.CastTo(out int i))
+                            Data.Add(new IntegerData() { Value = i });
+                        break;
+
+                    case "Line":
+                        if (item.CastTo(out Line line))
+                            Data.Add(new LineData() { Geom = new LineGeom(line) });
+                        break;
+
+                    case "Mesh":
+                        if (item.CastTo(out Mesh mesh))
+                            if (Label != "static")
+                                Data.Add(new MeshData() { Geom = new MeshGeom(mesh) });
+                        break;
+
+                    case "Number":
+                        if (item.CastTo(out float f))
+                            Data.Add(new NumberData() { Value = f });
+                        break;
+
+                    case "Plane":
+                        if (item.CastTo(out Plane plane))
+                            Data.Add(new PlaneData() { Geom = new PlaneGeom(plane) });
+                        break;
+
+                    case "Point":
+                        if (item.CastTo(out Point3f point))
+                            Data.Add(new PointData() { Point = new float[] { point.X, point.Y, point.Z } });
+                        break;
+
+                    case "Rectangle":
+                        if (item.CastTo(out Rectangle3d rectangle))
+                            Data.Add(new RectangleData() { Geom = new RectangleGeom(rectangle) });
+                        break;
+
+                    case "Text":
+                        if (item.CastTo(out string s))
+                            Data.Add(new StringData() { Value = s });
+                        break;
+
+                    case "SubD":
+                        if (item.CastTo(out SubD subd))
+                            Data.Add(new SubDData() { Geom = new SubDGeom(subd) });
+                        break;
+
+                    case "Surface":
+                        //if (item.CastTo(out Surface surface))
+                        //    Data.Add(new SurfaceData() { Geom = new SurfaceGeom(surface) });
+                        break;
+
+                    case "Vector":
+                        if (item.CastTo(out Vector3f vector))
+                            Data.Add(new VectorData() { Vector = new float[] { vector.X, vector.Y, vector.Z } });
+                        break;
+                }
+            }
         }
     }
 }

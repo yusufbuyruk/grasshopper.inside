@@ -1,5 +1,6 @@
 ﻿using Owin;
 using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace OwinSelfhostSample
 {
@@ -42,10 +43,12 @@ namespace OwinSelfhostSample
             config.Routes.MapHttpRoute(
                 name: "Compute", 
                 routeTemplate: "api/compute/{id}",
-                defaults: new { controller = "Documents", action = "Compute" } 
+                defaults: new { controller = "Documents", action = "Compute", id = 0 } 
                 );
 
-            config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;   // dev; dist;
+            // dev  - Formatting.Indented
+            // dist - Formatting.None
+            config.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
 
             appBuilder.UseWebApi(config);
         }
