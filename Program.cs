@@ -10,6 +10,10 @@ namespace GrasshopperInside
         {
             string baseAddress = "http://localhost:4446/";
 
+            if (args.Length > 0)
+                if (int.TryParse(args[0], out int port))
+                    baseAddress = $"http://localhost:{port}";
+
             using (WebApp.Start<Startup>(url: baseAddress))
             {
                 Console.WriteLine("API  http://localhost:4446/");
@@ -19,7 +23,12 @@ namespace GrasshopperInside
                 Console.WriteLine("GET  api/load/{filename}");
                 Console.WriteLine("GET  api/compress/{filename}");
                 Console.WriteLine("POST api/compute");
-                Console.ReadKey();
+                Console.WriteLine("");
+                Console.WriteLine("Press CTRL-Z to exit");
+
+                while (true)
+                    if (Console.ReadLine() == null)
+                        break;
             }
         }
     }
