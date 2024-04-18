@@ -126,7 +126,7 @@ namespace OwinSelfhostSample
 
             if (File.Exists(Path.Combine(folder, filename)))
             {
-                bool result = Document.Get().Load(filename);
+                bool result = Document.Get().Load(filename); // (clusters.Count > 0)
 
                 if (result)
                 {

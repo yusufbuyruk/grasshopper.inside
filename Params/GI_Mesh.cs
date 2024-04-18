@@ -38,7 +38,7 @@ namespace GrasshopperInside.Params
                 foreach (var normal in Normals)
                     mesh.Normals.Add(normal[0], normal[1], normal[2]);
 
-                // mesh.Normals.ComputeNormals(); // TODO: CHECK IF NECESSARY
+                // mesh.Normals.ComputeNormals();
                 // mesh.Compact();
 
                 return mesh;
