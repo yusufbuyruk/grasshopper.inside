@@ -12,7 +12,7 @@ namespace GrasshopperInside
     {
         static Program()
         {
-            Resolver.RhinoSystemDirectory = @"C:\Program Files\Rhino 7\System";
+            Resolver.RhinoSystemDirectory = @"C:\Program Files\Rhino 8\System";
             Resolver.Initialize();
         }
 

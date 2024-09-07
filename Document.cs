@@ -19,13 +19,18 @@ namespace GrasshopperInside
             return _document;
         }
 
-        private readonly List<Cluster> _clusters;
+        public string Filename(int id) => _documents[id];
 
         public List<Cluster> Clusters => _clusters;
+        private readonly List<Cluster> _clusters;
+
+        public List<string> Documents => _documents;
+        private readonly List<string> _documents;
 
         private Document() 
         {
             _clusters = new List<Cluster>();
+            _documents = new List<string>();
         }
 
         public bool Load(string filename)
