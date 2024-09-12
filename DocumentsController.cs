@@ -188,8 +188,10 @@ namespace OwinSelfhostSample
         {
             var document = Document.Get();
 
-            if (document.Clusters.Count >= id)
+            if (id >= document.Clusters.Count)
                 return BadRequest("Index out of range.");
+
+
 
             var cluster = document.Clusters[id];
             return Json(cluster.Inputs);

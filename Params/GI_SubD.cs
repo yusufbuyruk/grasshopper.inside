@@ -15,8 +15,8 @@ namespace GrasshopperInside.Params
             get
             {
                 return SubD.CreateFromMesh(ControlPolygon.RH_Mesh);
-                // SubD.CreateFromLoft(...);
-                // SubD.CreateFromSweep(...);
+                // TODO: SubD.CreateFromLoft(...);
+                // TODO: SubD.CreateFromSweep(...);
             }
         }
 

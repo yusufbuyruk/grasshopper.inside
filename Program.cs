@@ -30,7 +30,7 @@ namespace GrasshopperInside
 
                 string baseAddress = $"http://localhost:{port}/";
 
-                using (WebApp.Start<Startup>(url: baseAddress))
+                using (WebApp.Start<Startup>(url: baseAddress))  // bu satira bi WAIT gerekiyor
                 {
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"API  {baseAddress}");

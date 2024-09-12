@@ -25,25 +25,25 @@ namespace OwinSelfhostSample
             config.Routes.MapHttpRoute(
                 name: "Delete",
                 routeTemplate: "api/delete/{id}",
-                defaults: new { controller = "Documents", action = "Delete" }
+                defaults: new { controller = "Documents", action = "Delete", id = 0 }
                 );
 
             config.Routes.MapHttpRoute(
                 name: "Load",
                 routeTemplate: "api/load/{id}", 
-                defaults: new { controller = "Documents", action = "Load" }
+                defaults: new { controller = "Documents", action = "Load", id = 0 }
                 );
 
             config.Routes.MapHttpRoute(
                 name: "GetCluster",
                 routeTemplate: "api/getcluster/{id}",
-                defaults: new { controller = "Documents", action = "GetCluster" }
+                defaults: new { controller = "Documents", action = "GetCluster", id = 0 }
                 );
 
             config.Routes.MapHttpRoute(
                 name: "Compress", 
                 routeTemplate: "api/compress/{id}", 
-                defaults: new { controller = "Documents", action = "Compress" }
+                defaults: new { controller = "Documents", action = "Compress", id = 0 }
                 );
 
             config.Routes.MapHttpRoute(
