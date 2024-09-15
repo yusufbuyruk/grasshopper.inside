@@ -28,12 +28,9 @@ namespace OwinSelfhostSample
             
             Console.WriteLine("GET  | api/documents");
 
-            //var data = new
-            //{
-            //    documents = documents
-            //};
+            var data = new { documents };
 
-            return Json(documents);
+            return Json(data);
         }
 
         [HttpPost]
@@ -163,12 +160,20 @@ namespace OwinSelfhostSample
 
             if (File.Exists(path))
             {
-                bool result = document.Load(path); // (clusters.Count > 0)
+                bool result = document.Load(path); // result = clusters.Count > 0
 
                 if (result)
                 {
                     Console.WriteLine($"GET  | api/load/{id} - {filename} | Ok");
-                    return Json(document.Clusters.Count);
+
+                    List<string> labels = new List<string>();
+
+                    foreach(var cluster in document.Clusters)
+                        labels.Add(cluster.Label);
+
+                    var data = new { labels };
+
+                    return Json(data);
                 }
                 else
                 {

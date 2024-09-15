@@ -21,11 +21,11 @@ namespace GrasshopperInside
 
         public string Filename(int id) => _documents[id];
 
-        public List<Cluster> Clusters => _clusters;
         private readonly List<Cluster> _clusters;
+        public List<Cluster> Clusters => _clusters;
 
-        public List<string> Documents => _documents;
         private readonly List<string> _documents;
+        public List<string> Documents => _documents;
 
         private Document() 
         {
@@ -39,6 +39,8 @@ namespace GrasshopperInside
             GH_Archive archive = new GH_Archive();
             archive.ReadFromFile(filename);
             archive.ExtractObject(ghDocument, "Definition");
+
+            _clusters.Clear();
 
             foreach (var obj in ghDocument.Objects)
             {

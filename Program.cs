@@ -23,14 +23,14 @@ namespace GrasshopperInside
             {
                 RunHeadless();
 
-                int port = 4446;
+                int port = 4444;
 
                 if (args.Length > 0)
                     int.TryParse(args[0], out port);
 
                 string baseAddress = $"http://localhost:{port}/";
 
-                using (WebApp.Start<Startup>(url: baseAddress))  // bu satira bi WAIT gerekiyor
+                using (WebApp.Start<Startup>(url: baseAddress))
                 {
                     Console.WriteLine("----------------------------");
                     Console.WriteLine($"API  {baseAddress}");
