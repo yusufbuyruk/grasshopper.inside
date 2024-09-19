@@ -13,43 +13,43 @@ namespace OwinSelfhostSample
 
             config.Routes.MapHttpRoute(
                 name: "GetDocuments", 
-                routeTemplate: "documents", 
+                routeTemplate: "api/documents", 
                 defaults: new { controller = "Documents", action = "GetDocuments" }
                 );
 
             config.Routes.MapHttpRoute(
                 name: "Upload", 
-                routeTemplate: "upload/{filename}", 
+                routeTemplate: "api/upload/{filename}", 
                 defaults: new { controller = "Documents", action = "Upload" }
                 );
 
             config.Routes.MapHttpRoute(
                 name: "Delete",
-                routeTemplate: "delete/{id}",
+                routeTemplate: "api/delete/{id}",
                 defaults: new { controller = "Documents", action = "Delete", id = 0 }
                 );
 
             config.Routes.MapHttpRoute(
                 name: "Load",
-                routeTemplate: "load/{id}", 
+                routeTemplate: "api/load/{id}", 
                 defaults: new { controller = "Documents", action = "Load", id = 0 }
                 );
 
             config.Routes.MapHttpRoute(
                 name: "GetCluster",
-                routeTemplate: "getcluster/{id}",
+                routeTemplate: "api/getcluster/{id}",
                 defaults: new { controller = "Documents", action = "GetCluster", id = 0 }
                 );
 
             config.Routes.MapHttpRoute(
                 name: "Compress", 
-                routeTemplate: "compress/{id}", 
+                routeTemplate: "api/compress/{id}", 
                 defaults: new { controller = "Documents", action = "Compress", id = 0 }
                 );
 
             config.Routes.MapHttpRoute(
                 name: "Compute", 
-                routeTemplate: "compute/{id}",
+                routeTemplate: "api/compute/{id}",
                 defaults: new { controller = "Documents", action = "Compute", id = 0 } 
                 );
 

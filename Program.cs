@@ -37,9 +37,10 @@ namespace GrasshopperInside
                     Console.WriteLine("----------------------------");
                     Console.WriteLine("GET  | api/documents");
                     Console.WriteLine("POST | api/upload/{filename}");
-                    Console.WriteLine("GET  | api/delete/{filename}");
-                    Console.WriteLine("GET  | api/load/{filename}");
-                    Console.WriteLine("GET  | api/compress/{filename}");
+                    Console.WriteLine("GET  | api/delete/{file_id}");
+                    Console.WriteLine("GET  | api/load/{file_id}");
+                    Console.WriteLine("GET  | api/compress/{file_id}");
+                    Console.WriteLine("GET  | api/get_cluster/{id=0}");
                     Console.WriteLine("POST | api/compute/{id=0}");
                     Console.WriteLine("----------------------------");
                     Console.WriteLine("Press CTRL-Z to exit");
@@ -52,6 +53,9 @@ namespace GrasshopperInside
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         static void RunHeadless()
         {
             Console.WriteLine("2/2 Loading Grasshopper...");
