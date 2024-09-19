@@ -199,7 +199,7 @@ namespace OwinSelfhostSample
 
 
             var cluster = document.Clusters[id];
-            return Json(cluster.Inputs);
+            return Json(cluster);
         }
 
         [HttpPost]
@@ -207,7 +207,7 @@ namespace OwinSelfhostSample
         {
             var document = Document.Get();
 
-            if (document.Clusters.Count >= id)
+            if (id >= document.Clusters.Count)
             {
                 Console.WriteLine($"POST | api/compute/{id} | BadRequest | Index out of range");
                 return BadRequest("Index out of range.");
