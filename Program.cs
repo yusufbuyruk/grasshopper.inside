@@ -12,7 +12,7 @@ namespace GrasshopperInside
     {
         static Program()
         {
-            Resolver.RhinoSystemDirectory = @"C:\Program Files\Rhino 7\System";
+            Resolver.RhinoSystemDirectory = @"C:\Program Files\Rhino 8\System";
             Resolver.Initialize();
         }
 
@@ -23,24 +23,25 @@ namespace GrasshopperInside
             {
                 RunHeadless();
 
-
-                string baseAddress = "http://localhost:4446/";
+                int port = 4444;
 
                 if (args.Length > 0)
-                    if (int.TryParse(args[0], out int port))
-                        baseAddress = $"http://localhost:{port}";
+                    int.TryParse(args[0], out port);
+
+                string baseAddress = $"http://localhost:{port}/";
 
                 using (WebApp.Start<Startup>(url: baseAddress))
                 {
                     Console.WriteLine("----------------------------");
-                    Console.WriteLine("API  http://localhost:4446/");
+                    Console.WriteLine($"API  {baseAddress}");
                     Console.WriteLine("----------------------------");
                     Console.WriteLine("GET  | api/documents");
                     Console.WriteLine("POST | api/upload/{filename}");
-                    Console.WriteLine("GET  | api/delete/{filename}");
-                    Console.WriteLine("GET  | api/load/{filename}");
-                    Console.WriteLine("GET  | api/compress/{filename}");
-                    Console.WriteLine("POST | api/compute");
+                    Console.WriteLine("GET  | api/delete/{file_id}");
+                    Console.WriteLine("GET  | api/load/{file_id}");
+                    Console.WriteLine("GET  | api/compress/{file_id}");
+                    Console.WriteLine("GET  | api/get_cluster/{id=0}");
+                    Console.WriteLine("POST | api/compute/{id=0}");
                     Console.WriteLine("----------------------------");
                     Console.WriteLine("Press CTRL-Z to exit");
                     Console.WriteLine("----------------------------");
@@ -52,6 +53,9 @@ namespace GrasshopperInside
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         static void RunHeadless()
         {
             Console.WriteLine("2/2 Loading Grasshopper...");
