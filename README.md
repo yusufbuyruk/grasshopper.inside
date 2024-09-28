@@ -75,7 +75,7 @@ This project implements primitive data types, including `boolean`, `integer`, `d
     ```
   - Package Manager Settings Options
   - Navigate to: `NuGet Package Manager` > `General`
-  - Set **Package Management Default package management format** to **PackageReference**
+  - Set `Package Management Default package management format` to `PackageReference`
 
 
 ---
