@@ -180,6 +180,12 @@ public class GrasshopperInsideEditor : EditorWindow
         component.documentName = documents[documentId];
         component.clusterName = clusters[clusterId];
 
+        Material material = Resources.Load<Material>("Materials/GI_MeshMaterial");
+
+        if (material != null)
+        {
+            component.mat = material;
+        }
 
         GameObject selectedObject = Selection.activeGameObject;
         if (selectedObject != null)
