@@ -6,7 +6,7 @@ In this project, I developed an **Application Programming Interface (API)** that
 
 The REST API Server software can be accessed through various client devices, including web browsers, mobile devices, headsets, or other software applications. While processing the HTTP requests and returning the HTTP responses, the Grasshopper3D program runs in headless mode in the background.
 
-[![Grasshopper.Inside](readme-images/grasshopper-inside.jpg)](https://www.youtube.com/watch?v=92krsDt8qys&list=PLv0cS6BsK0uJxEhYNfP0xsXtbNSO0baUR&index=5)
+[![Grasshopper.Inside](readme-images/cover-page.png)](https://www.youtube.com/watch?v=92krsDt8qys&list=PLv0cS6BsK0uJxEhYNfP0xsXtbNSO0baUR&index=5)
 
 [Grasshopper.Inside Robotic Fabrication Youtube Playlist](https://www.youtube.com/watch?v=92krsDt8qys&list=PLv0cS6BsK0uJxEhYNfP0xsXtbNSO0baUR&index=5)
 
