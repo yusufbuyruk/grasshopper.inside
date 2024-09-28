@@ -6,7 +6,7 @@ In this project, I developed an **Application Programming Interface (API)** that
 
 The REST API Server software can be accessed through various client devices, including web browsers, mobile devices, headsets, or other software applications. While processing the HTTP requests and returning the HTTP responses, the Grasshopper3D program runs in headless mode in the background.
 
-[![Grasshopper.Inside](readme-images/grasshopper-inside.jpg)](https://www.youtube.com/watch?v=92krsDt8qys&list=PLv0cS6BsK0uJxEhYNfP0xsXtbNSO0baUR&index=5)
+[![Grasshopper.Inside](readme-images/cover-page.png)](https://www.youtube.com/watch?v=92krsDt8qys&list=PLv0cS6BsK0uJxEhYNfP0xsXtbNSO0baUR&index=5)
 
 [Grasshopper.Inside Robotic Fabrication Youtube Playlist](https://www.youtube.com/watch?v=92krsDt8qys&list=PLv0cS6BsK0uJxEhYNfP0xsXtbNSO0baUR&index=5)
 
@@ -38,7 +38,7 @@ This project implements primitive data types, including `boolean`, `integer`, `d
 
 ### Step 4: Import the Grasshopper Package
 1. Download the Unity custom package file from the [grasshopper_inside.unitypackage](https://github.com/yusufbuyruk/grasshopper.inside/releases/download/v1.0.0-alpha/grasshopper_inside.unitypackage).
-2. Import the custom package ```grasshopper-inside.unitypackage```.
+2. Import the custom package ```grasshopper_inside.unitypackage```.
 - Go to `Assets` > `Import Package` > `Custom Package` and select the file.
 
 ### Step 5: Create Grasshopper3d Definition File
@@ -75,7 +75,7 @@ This project implements primitive data types, including `boolean`, `integer`, `d
     ```
   - Package Manager Settings Options
   - Navigate to: `NuGet Package Manager` > `General`
-  - Set **Package Management Default package management format** to **PackageReference**
+  - Set `Package Management Default package management format` to `PackageReference`
 
 
 ---
@@ -87,16 +87,16 @@ This project implements primitive data types, including `boolean`, `integer`, `d
 - **Chicago/Turabian Style**
   - Buyruk, Yusuf, and Gülen Çağdaş. 2022. "Interactive Parametric Design and Robotic Fabrication within Mixed Reality Environment" *Applied Sciences* 12, no. 24: 12797. [https://doi.org/10.3390/app122412797](https://doi.org/10.3390/app122412797)
 - **Bibtex**
-    ```
-    @article{Buyruk2022,
-      author = {Yusuf Buyruk and Gülen Çağdaş},
-      title = {Interactive Parametric Design and Robotic Fabrication within Mixed Reality Environment},
-      journal = {Applied Sciences},
-      year = {2022},
-      volume = {12},
-      number = {24},
-      pages = {12797},
-      doi = {10.3390/app122412797},
-      url = {https://doi.org/10.3390/app122412797}
-    }
-    ```
+ ```
+ @article{Buyruk2022,
+   author = {Yusuf Buyruk and Gülen Çağdaş},
+   title = {Interactive Parametric Design and Robotic Fabrication within Mixed Reality Environment},
+   journal = {Applied Sciences},
+   year = {2022},
+   volume = {12},
+   number = {24},
+   pages = {12797},
+   doi = {10.3390/app122412797},
+   url = {https://doi.org/10.3390/app122412797}
+ }
+ ```
