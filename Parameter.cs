@@ -113,8 +113,7 @@ namespace GrasshopperInside
                     if (ighParam.SourceCount > 0)
                         if (ighParam.Sources[0] is GH_NumberSlider numberSlider)
                             
-                            // TODO BU SATIR DA FLOAT HATAYA NEDEN OLUYOR
-                            // PARAMETRE INTEGER SLIDER FLOAT OLDUGU DURUMDA
+                            // TODO: TEST
                             // if (numberSlider.Slider.Type != GH_SliderAccuracy.Float)
                             {
                                 integerData.Min = (int)numberSlider.Slider.Minimum;
@@ -137,7 +136,7 @@ namespace GrasshopperInside
                     if (ighParam.SourceCount > 0)
                         if (ighParam.Sources[0] is GH_NumberSlider numberSlider)
 
-                            // TODO BU SATIRA GEREK OLMAYABILIR
+                            // TODO: TEST
                             // if (numberSlider.Slider.Type == GH_SliderAccuracy.Float)
                             {
                                 numberData.Min = (float)numberSlider.Slider.Minimum;
@@ -277,7 +276,7 @@ namespace GrasshopperInside
 
 
             // TODO SEARCH : Param.Kind vs Param.TypeName
-            // TODO SEARCH : Param.Phase = GH_SolutionPhase.Collecting / GH_SolutionPhase.Collected / GH_SolutionPhase.Computed;
+            // TODO SEARCH : Param.Phase = GH_SolutionPhase.Collecting | GH_SolutionPhase.Collected | GH_SolutionPhase.Computed;
 
             // var item = (GH_<Data>)Param.VolatileData.get_Branch(0)[0];
             // Data = item.Value;
