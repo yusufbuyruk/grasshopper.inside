@@ -38,7 +38,7 @@ This project implements primitive data types, including `boolean`, `integer`, `d
 
 ### Step 4: Import the Grasshopper Package
 1. Download the Unity custom package file from the [grasshopper_inside.unitypackage](https://github.com/yusufbuyruk/grasshopper.inside/releases/download/v1.0.0-alpha/grasshopper_inside.unitypackage).
-2. Import the custom package ```grasshopper-inside.unitypackage```.
+2. Import the custom package ```grasshopper_inside.unitypackage```.
 - Go to `Assets` > `Import Package` > `Custom Package` and select the file.
 
 ### Step 5: Create Grasshopper3d Definition File
