@@ -20,7 +20,7 @@ This project implements primitive data types, including `boolean`, `integer`, `d
 ## How to Install
 
 ### Step 1: Download and Run the Executable
-1. Download the executable zip file from the [grasshopper.inside.zip](https://github.com/yusufbuyruk/grasshopper.inside/releases/latest).
+1. Download the executable zip file from the [grasshopper-inside.zip](https://github.com/yusufbuyruk/grasshopper.inside/releases/latest).
 2. Extract the zip file.
 3. Run the `GrasshopperInside.exe` executable file.
 
