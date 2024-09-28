@@ -20,7 +20,7 @@ This project implements primitive data types, including `boolean`, `integer`, `d
 ## How to Install
 
 ### Step 1: Download and Run the Executable
-1. Download the executable zip file from the [grasshopper.inside-v1.0.0-alpha](https://github.com/yusufbuyruk/grasshopper.inside/releases/tag/v1.0.0-alpha).
+1. Download the executable zip file from the [grasshopper.inside-latest.zip](https://github.com/yusufbuyruk/grasshopper.inside/releases/latest).
 2. Extract the zip file.
 3. Run the `GrasshopperInside.exe` executable file.
 
@@ -37,7 +37,7 @@ This project implements primitive data types, including `boolean`, `integer`, `d
 2. Select **Install Package by Name** and enter: ```com.unity.nuget.newtonsoft-json```
 
 ### Step 4: Import the Grasshopper Package
-1. Download the Unity custom package file from the [grasshopper_inside.unitypackage](https://github.com/yusufbuyruk/grasshopper.inside/releases/download/v1.0.0-alpha/grasshopper_inside.unitypackage).
+1. Download the Unity custom package file from the [grasshopper_inside.unitypackage](https://github.com/yusufbuyruk/grasshopper.inside/releases/latest).
 2. Import the custom package ```grasshopper_inside.unitypackage```.
 - Go to `Assets` > `Import Package` > `Custom Package` and select the file.
 
