@@ -22,11 +22,11 @@ using UnityEngine.UI;
 public class GI_Component : MonoBehaviour
 {
 
-    [HideInInspector] public string url = "http://localhost";
-    [HideInInspector] public int port = 4444;
+    [HideInInspector] public string url;
+    [HideInInspector] public int port;
 
-    [HideInInspector] public int documentId = 0;
-    [HideInInspector] public int clusterId = 0;
+    [HideInInspector] public int documentId;
+    [HideInInspector] public int clusterId;
 
     [HideInInspector] public string documentName;
     [HideInInspector] public string clusterName;
@@ -99,9 +99,14 @@ public class GI_Component : MonoBehaviour
 
     public void LoadDocument()
     {
-        _ = StartCoroutine(GetRequest($"api/load/{documentId}", Log));
+        _ = StartCoroutine(LoadDocumentAsync());
     }
 
+    IEnumerator LoadDocumentAsync()
+    {
+        yield return GetRequest($"api/documents", Log);
+        yield return GetRequest($"api/load/{documentId}", Log);
+    }
 
     void OnGUI()
     {
@@ -301,12 +306,12 @@ public class GI_Component : MonoBehaviour
         {
             string json = request.downloadHandler.text;
             callback?.Invoke(json);
-            Debug.Log("POST request successful!");
+            // Debug.Log("POST request successful!");
         }
         else
         {
             fallback?.Invoke(request.error);
-            Debug.LogError($"POST request failed: {request.error}");
+            // Debug.LogError($"POST request failed: {request.error}");
         }
     }
 

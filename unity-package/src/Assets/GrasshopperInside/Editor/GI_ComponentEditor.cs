@@ -22,9 +22,23 @@ public class GI_ComponentEditor : Editor
             margin = new RectOffset(40, 40, 10, 10) // left, right, top, bottom
         };
 
-        if (GUILayout.Button("Load Document", buttonStyle))
+        GUIContent buttonContentLoadDocument = new("Load Document", $"Document: {giComponent.documentName} Cluster: {giComponent.clusterName}");
+
+        if (GUILayout.Button(buttonContentLoadDocument, buttonStyle))
         {
             giComponent.LoadDocument();
+        }
+
+        GUIContent buttonContentAddCamera = new("Add Simple Camera Controller", "Add simple camera controller component to main camera");
+
+        if (GUILayout.Button(buttonContentAddCamera, buttonStyle))
+        {
+            GameObject mainCamera = Camera.main.gameObject;
+
+            if (mainCamera.GetComponent<SimpleCameraController>() == null)
+            {
+                mainCamera.AddComponent<SimpleCameraController>();
+            }
         }
 
         giComponent.mat = (Material)EditorGUILayout.ObjectField("Material", giComponent.mat, typeof(Material), false);
