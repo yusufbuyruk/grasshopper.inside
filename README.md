@@ -35,6 +35,7 @@ This project implements primitive data types, including `boolean`, `integer`, `d
 1. Open the **Package Manager** in Unity.
    - Go to `Window` > `Package Manager`.
 2. Select **Install Package by Name** and enter: ```com.unity.nuget.newtonsoft-json```
+ ![Newtonsoft Json Package](readme-images/newtonsoft-json.png)
 
 ### Step 4: Import the Grasshopper Package
 1. Download the Unity custom package file from the [grasshopper_inside.unitypackage](https://github.com/yusufbuyruk/grasshopper.inside/releases/latest).
