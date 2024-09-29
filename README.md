@@ -101,5 +101,5 @@ This project implements primitive data types, including `boolean`, `integer`, `d
  }
  ```
 #### Disclaimer
-Please note that using the application on mixed-reality headsets and mobile devices with industrial robots is for educational purposes only. We do not recommend running any code on an actual industrial robot and do not accept any liability for using this experimental software. Commercial use of the application on mixed-reality headsets and mobile devices with industrial robots is not allowed.
+Please note that using the application on mixed-reality headsets and mobile devices with industrial robots is for educational purposes only. We do not recommend running any code on an actual industrial robot and do not accept any liability for using this experimental software. Commercial use of the application on mixed-reality headsets and mobile devices with industrial robots is not allowed. Any commercial use is the responsibility of the user.
 
