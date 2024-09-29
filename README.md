@@ -88,7 +88,7 @@ This project implements primitive data types, including `boolean`, `integer`, `d
   - Buyruk, Yusuf, and Gülen Çağdaş. 2022. "Interactive Parametric Design and Robotic Fabrication within Mixed Reality Environment" *Applied Sciences* 12, no. 24: 12797. [https://doi.org/10.3390/app122412797](https://doi.org/10.3390/app122412797)
 - **Bibtex**
  ```
- @article{Buyruk2022,
+ @article{Buyruk2022Robotic,
    author = {Yusuf Buyruk and Gülen Çağdaş},
    title = {Interactive Parametric Design and Robotic Fabrication within Mixed Reality Environment},
    journal = {Applied Sciences},
