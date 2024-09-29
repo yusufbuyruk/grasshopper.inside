@@ -89,7 +89,7 @@ This project implements primitive data types, including `boolean`, `integer`, `d
 - **Bibtex**
  ```
  @article{Buyruk2022Robotic,
-   author = {Yusuf Buyruk and Gülen Çağdaş},
+   author = {Yusuf Buyruk and G{\"u}len {\c{C}}a{\u{g}}da{\c{s}}},
    title = {Interactive Parametric Design and Robotic Fabrication within Mixed Reality Environment},
    journal = {Applied Sciences},
    year = {2022},
